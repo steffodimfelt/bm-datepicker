@@ -1,0 +1,112 @@
+<div id="{{ formControlNameInput }}">
+  <label for="bm-date-input">{{ label }}</label>
+  <div class="bm-date-input-wrapper">
+    <div
+      *ngIf="this.formGroupInput === undefined || this.formControlNameInput.length === 0 || this.formControlNameInput === undefined"
+      class="bm-date-input-wrapper">
+      <form [formGroup]="defaultForm" class="bm-date-input-wrapper">
+        <input
+          (keyup)="keyboardInput($event)"
+          [readonly]="readonly"
+          [pattern]="pattern"
+          formControlName="selectedDate"
+          placeholder="{{ placeholder }}"
+          class="bm-date-input" />
+      </form>
+    </div>
+
+    <div
+      *ngIf="this.formGroupInput && this.formGroupInput.value !== undefined && this.formControlNameInput.length !== 0 "
+      [formGroup]="formGroupInput"
+      class="bm-date-input-wrapper">
+      <input
+        (keyup)="keyboardInput($event)"
+        [readonly]="readonly"
+        formControlName="{{ formControlNameInput }}"
+        placeholder="{{ placeholder }}"
+        class="bm-date-input bm-date-input-pointer" />
+    </div>
+    <div class="bm-toggle-button" (click)="toggleCalendar()">
+      <ng-content></ng-content>
+      <div class="bm-default-calendar bm-default-calendar-icon">
+        <div class="upper-line">
+          <div class="inner"></div>
+          <div class="inner"></div>
+        </div>
+        <div class="inner-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div [@toggleTable]="showDatePicker ? 'open' : 'close'" class="bm-table">
+    <div class="bm-tr">
+      <div class="bm-td">
+        <div class="bm-td-inner" (click)="selectPrevious()">
+          <span class="bm-arrow bm-arrow-left"></span>
+        </div>
+      </div>
+      <div class="bm-year-month-title">
+        <p class="bm-date-p bm-month-title">
+          {{ calendarMonthsService.selectedMonthName }}
+        </p>
+        <p class="bm-date-p bm-year-title">
+          {{ calendarYearsService.selectedYear }}
+        </p>
+      </div>
+      <div class="bm-td">
+        <div class="bm-td-inner" (click)="selectNext()">
+          <span class="bm-arrow bm-arrow-right"></span>
+        </div>
+      </div>
+    </div>
+    <div class="bm-tr bm-daylabels-wrapper">
+      <div *ngFor="let weekdayLabel of weekdayLabels" class="bm-th">
+        <p class="bm-date-p">{{ weekdayLabel }}</p>
+      </div>
+    </div>
+    <div
+      *ngFor="let weekRow of calendarMonthsService.selectedMonthDaysArray(isSunday)"
+      class="bm-tr">
+      <div
+        *ngFor="let dayDate of weekRow; let dayIndex = index"
+        [ngClass]="{
+          'bm-td': dayDate,
+          'bm-td-empty': !dayDate
+        }">
+        <div
+          (click)="selectDay(dayDate)"
+          [ngClass]="{
+            'bm-td-inner': dayDate,
+            'bm-td-inner-empty': !dayDate,
+            'bm-td-lock-day':
+            {
+              dayDate,
+              lockDateBefore,
+              lockDateAfter,
+              patternArray
+            } | checkLockPipe,
+            'bm-td-current-day':
+              calendarYearsService.selectedYear ===
+                calendarYearsService.currentYear &&
+              calendarMonthsService.selectedMonth ===
+                calendarMonthsService.currentMonth &&
+              dayDate &&
+              calendarDaysService.returnWeekdayDate(dayDate) ===
+                calendarDaysService.currentDay &&
+              calendarDaysService.selectedDay !==
+                calendarDaysService.returnWeekdayDate(dayDate),
+            'bm-td-selected-day': dayDate && selectedDayDate(dayDate)
+          }">
+          <p
+            class="bm-date-p"
+            [class.bm-weekend]="dayDate && (dayIndex === 5 || dayIndex === 6)">
+            {{ dayDate && calendarDaysService.returnWeekdayDate(dayDate) }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!!errorMessage && showError" class="bm-error-message">
+    <p>{{errorMessage}}</p>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+{
+  "name": "bm-datepicker",
+  "version": "1.0.0",
+  "author": {
+  "name": "Steffo Dimfelt",
+  "email": "steffo.dimfelt@gmail.com"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^15.1.0",
+    "@angular/core": "^15.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steffodimfelt/bm-datepicker.git"
+  },
+  "keywords": [
+    "angular",
+    "datepicker",
+    "picker",
+    "calendar",
+    "dates"
+  ],
+  "sideEffects": false
+}
