@@ -94,12 +94,6 @@ label{
     justify-content:center; 
     align-items: center; 
 }
-.bm-td-empty-month{
-    display:flex; 
-    flex:1;
-    justify-content:center; 
-    align-items: center; 
-}
 .bm-td-empty .bm-td-inner-empty{
     height:30px;
     width:30px;

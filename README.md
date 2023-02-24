@@ -54,6 +54,13 @@ Of course. Put you validation requirements in you component or service. Bookmake
 
 ## How do I handle validated errors and error messages?
 You can add the error messages below the Bookmaker and reference to the input field via the FormControllName.
+In component:
+```javascript
+    this.generatedFormGroup = this.formBuilder.group({
+      dateFrom: ["", Validators.required],
+    })
+```
+In HTML:
 ```html
 <p *ngIf="generatedFormGroup.get('dateFrom')?.errors?.['required']">
     This field is required
@@ -172,7 +179,7 @@ Note! The toggle effect will occure after manually changes in the input field. T
 ## Can I change placement of the datepicker and input field? 
 Sorry, not yet. Officially. (Maybe if you hack the stylesheet - if so - let me know about it) :-)
 
-## I want a different calendar button icon. How do I change that (even if it is quite fancy)?
+## I want a different calendar button icon. How do I change that (even if the default icon is quite fancy)?
 Bookmaker have a default calendar icon. If you want to use your own, you can add it inside the Bookmaker. 
 The default size i maximum 20px, but if you want bigger button, you should also change the size in the `.bm-toggle-button` style
 ```html
@@ -184,14 +191,17 @@ The default size i maximum 20px, but if you want bigger button, you should also 
 </bm-datepicker>
 ```
 
-## Can I change that stylesheet?
+## Can I change the stylesheet?
 You can change everything in Bookmaker. That's the beauty. It is a list of styles, but hey, you are a developer, aren't you? You can use the stylesheet to change parts or everything, it's up to you. Treat it as an usual stylesheet in SCSS. This is an overview of all elements, but you can concentrate it and put togther elements as you wish.  
 
-Use `styleSheet`option to do the changes:
+Use `styleSheet` option to do the changes, and `formControlNameInput` to make an individual stylesheet:
 
 In the HTML: 
 ```html
-<bm-datepicker [styleSheet]="styles"><bm-datepicker>
+<bm-datepicker 
+formControlNameInput="dateFrom"
+[styleSheet]="styles">
+<bm-datepicker>
 ```
 In the component: 
 ```javascript
@@ -286,12 +296,6 @@ label{
     align-items: center; 
 }
 .bm-td-empty{
-    display:flex; 
-    flex:1;
-    justify-content:center; 
-    align-items: center; 
-}
-.bm-td-empty-month{
     display:flex; 
     flex:1;
     justify-content:center; 
@@ -555,4 +559,5 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
+- 1.0.1: Bug fixes
 - 1.0.0: Initial setup

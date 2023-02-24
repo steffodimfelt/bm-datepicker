@@ -99,7 +99,7 @@
           }">
           <p
             class="bm-date-p"
-            [class.bm-weekend]="dayDate && (dayIndex === 5 || dayIndex === 6)">
+            [class.bm-weekend]="dayDate && ((!isSunday && (dayIndex === 5 || dayIndex === 6)) || (isSunday && (dayIndex === 0 || dayIndex === 6)))">
             {{ dayDate && calendarDaysService.returnWeekdayDate(dayDate) }}
           </p>
         </div>
