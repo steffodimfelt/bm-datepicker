@@ -1,14 +1,14 @@
 {
   "name": "bm-datepicker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
   "name": "Steffo Dimfelt",
   "email": "steffo.dimfelt@gmail.com"
   },
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": ">=15.0.0",
-    "@angular/core": ">=15.0.0"
+    "@angular/common": "^15.1.0 || ^16.0.0 || ^17.0.0",
+    "@angular/core": "^15.1.0 || ^16.0.0 || ^17.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
