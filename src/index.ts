@@ -1,5 +1,5 @@
 /*
- * Public API Surface of bm-datepicker-lite
+ * Public API Surface of bm-datepicker
  */
 
 export * from './lib/bm-datepicker.component';

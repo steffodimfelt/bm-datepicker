@@ -2,7 +2,7 @@
 A sweet, stylish and fast datepicker for Angular. Developed for developers who want full control over the stylesheet and patterns. Can be used within a formgroup or as a standalone input with a standalone callback output. 
 
 ## Notice
-This application requires Angular version 15.0.0 or newer to work correctly.
+This application requires Angular version 15.1.0 or newer to work correctly.
 
 <img src="https://github.com/steffodimfelt/bm-datepicker/blob/main/bookmaker.png"  alt="Bookmaker Datepicker">
 
@@ -10,15 +10,29 @@ This application requires Angular version 15.0.0 or newer to work correctly.
 `npm i bm-datepicker`
 
 Import module in `app.module.ts`:
+
 ```javascript
-import { BmDatepickerModule } from 'bm-datepicker';
+import { BmDatepickerModule } from 'bm-datepicker/src';
   imports: [
     BmDatepickerModule,
     ...
   ],
 ```
 
-Usage:
+## If you have an old version
+v.1.0.3
+```javascript
+import { BmDatepickerModule } from 'bm-datepicker/src/public-api';
+```
+v.1.0.2 (Do not use it all...)
+
+v.1.0.1
+```javascript
+import { BmDatepickerModule } from 'bm-datepicker';
+```
+
+
+# Usage:
 ```html
 <bm-datepicker></bm-datepicker>
 ```
@@ -559,6 +573,6 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
-- 1.0.3: Update peerDependencies
+- 1.0.4: Update peerDependencies
 - 1.0.1: Bug fixes
 - 1.0.0: Initial setup
