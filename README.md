@@ -559,5 +559,6 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
+- 1.0.2: Update peerDependencies
 - 1.0.1: Bug fixes
 - 1.0.0: Initial setup
