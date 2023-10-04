@@ -12,7 +12,7 @@ This application requires Angular version 15.1.0 or newer to work correctly.
 Import module in `app.module.ts`:
 
 ```javascript
-import { BmDatepickerModule } from 'bm-datepicker/src';
+import { BmDatepickerModule } from 'bm-datepicker';
   imports: [
     BmDatepickerModule,
     ...
@@ -569,6 +569,6 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
-- 1.0.6: Update peerDependencies
+- 1.0.7: Update peerDependencies
 - 1.0.1: Bug fixes
 - 1.0.0: Initial setup
