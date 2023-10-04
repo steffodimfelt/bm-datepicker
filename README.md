@@ -20,11 +20,7 @@ import { BmDatepickerModule } from 'bm-datepicker/src';
 ```
 
 ## If you have an old version
-v.1.0.3
-```javascript
-import { BmDatepickerModule } from 'bm-datepicker/src/public-api';
-```
-v.1.0.2 (Do not use it all...)
+v.1.0.2 - 1.0.4: (Deprected)
 
 v.1.0.1
 ```javascript
@@ -573,6 +569,6 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
-- 1.0.4: Update peerDependencies
+- 1.0.6: Update peerDependencies
 - 1.0.1: Bug fixes
 - 1.0.0: Initial setup
