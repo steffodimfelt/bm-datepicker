@@ -360,7 +360,7 @@ export class BmDatepickerComponent implements OnInit {
         day: this.inputData.day,
       });
       if (
-        parsedDate.year === formatDateOut.year &&
+        this.localSelectedYear.toString() === formatDateOut.year &&
         parsedDate.month === formatDateOut.month &&
         parsedDate.day === formatDateOut.day
       ) {

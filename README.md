@@ -641,4 +641,4 @@ Steffo Dimfelt
 
 # Version list
 
-- 1.0.8: Adjust locked days
+- 1.0.8: Adjust locked days and selected date
