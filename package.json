@@ -1,9 +1,9 @@
 {
   "name": "bm-datepicker",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": {
-  "name": "Steffo Dimfelt",
-  "email": "steffo.dimfelt@gmail.com"
+    "name": "Steffo Dimfelt",
+    "email": "steffo.dimfelt@gmail.com"
   },
   "license": "MIT",
   "peerDependencies": {

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'platform'
+  providedIn: "platform",
 })
 export class CalendarYearsService {
   _currentYear: any;

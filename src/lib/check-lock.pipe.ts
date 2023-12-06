@@ -1,11 +1,17 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { splitDateToObject } from './functions/splitDateToObject';
+import { Pipe, PipeTransform } from "@angular/core";
+import { splitDateToObject } from "./functions/splitDateToObject";
+import { parseDateFromISO } from "./functions/parseDateFromISO";
+import { parseDateToISO } from "./functions/parseDateToISO";
 @Pipe({
-  name: 'checkLockPipe'
+  name: "checkLockPipe",
 })
 export class CheckLockPipe implements PipeTransform {
   transform(value: any): any {
     if (value.dayDate != undefined) {
+      let parseDayDate = parseDateFromISO(value.dayDate);
+      parseDayDate.year = value.localSelectedYear;
+      const parseDayDateToIso = parseDateToISO(parseDayDate);
+
       if (!!value.lockDateBefore && !!value.lockDateAfter) {
         const _splitObjBefore = splitDateToObject(
           value.lockDateBefore,
@@ -27,8 +33,8 @@ export class CheckLockPipe implements PipeTransform {
         let formatedInputDateAfter = new Date(_inputToISOAfter);
         formatedInputDateAfter.setHours(0, 0, 0, 0);
         return (
-          (true && value.dayDate < formatedInputDateBefore) ||
-          value.dayDate > formatedInputDateAfter
+          (true && parseDayDateToIso < formatedInputDateBefore) ||
+          parseDayDateToIso > formatedInputDateAfter
         );
       }
 
@@ -43,7 +49,7 @@ export class CheckLockPipe implements PipeTransform {
         let formatedInputDate = new Date(_inputToISO);
         formatedInputDate.setHours(0, 0, 0, 0);
 
-        return true && value.dayDate < formatedInputDate;
+        return true && parseDayDateToIso < formatedInputDate;
       }
 
       if (!!value.lockDateAfter && value.lockDateBefore === null) {
@@ -56,7 +62,7 @@ export class CheckLockPipe implements PipeTransform {
         );
         let formatedInputDate = new Date(_inputToISO);
         formatedInputDate.setHours(0, 0, 0, 0);
-        return true && value.dayDate > formatedInputDate;
+        return true && parseDayDateToIso > formatedInputDate;
       }
       return false;
     }

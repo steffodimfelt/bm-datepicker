@@ -3,57 +3,57 @@ import {
   state,
   style,
   transition,
-  animate
-} from '@angular/animations';
+  animate,
+} from "@angular/animations";
 import {
   Component,
   ElementRef,
   EventEmitter,
   Input,
   OnInit,
-  Output
-} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InputDataInterface } from './interfaces/inputData-interface';
+  Output,
+} from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { InputDataInterface } from "./interfaces/inputData-interface";
 
-import { CalendarDaysService } from './services/calendar-days.service';
-import { CalendarMonthsService } from './services/calendar-months.service';
-import { CalendarYearsService } from './services/calendar-years.service';
-import stylesDefault from './styles-default';
-import { splitDateToObject } from './functions/splitDateToObject';
-import { parseDateFromISO } from './functions/parseDateFromISO';
-import { parseDateToISO } from './functions/parseDateToISO';
-import { formatDateFromObject } from './functions/formatDateFromObject';
-import { formatDateFunction } from './functions/formatDateFunction';
-import { formatInputNumber } from './functions/formatInput';
-import { splitPattern } from './functions/splitPattern';
-import { matchPattern } from './functions/matchPattern';
+import { CalendarDaysService } from "./services/calendar-days.service";
+import { CalendarMonthsService } from "./services/calendar-months.service";
+import { CalendarYearsService } from "./services/calendar-years.service";
+import stylesDefault from "./styles-default";
+import { splitDateToObject } from "./functions/splitDateToObject";
+import { parseDateFromISO } from "./functions/parseDateFromISO";
+import { parseDateToISO } from "./functions/parseDateToISO";
+import { formatDateFromObject } from "./functions/formatDateFromObject";
+import { formatDateFunction } from "./functions/formatDateFunction";
+import { formatInputNumber } from "./functions/formatInput";
+import { splitPattern } from "./functions/splitPattern";
+import { matchPattern } from "./functions/matchPattern";
 
 @Component({
-  selector: 'bm-datepicker',
-  templateUrl: './bm-datepicker.component.html',
-  styleUrls: ['./styles.scss'],
+  selector: "bm-datepicker",
+  templateUrl: "./bm-datepicker.component.html",
+  styleUrls: ["./styles.scss"],
   animations: [
-    trigger('toggleTable', [
+    trigger("toggleTable", [
       state(
-        'open',
+        "open",
         style({
           opacity: 1,
-          marginTop: '10px'
+          marginTop: "10px",
         })
       ),
       state(
-        'close',
+        "close",
         style({
           height: 0,
           padding: 0,
           opacity: 0,
-          marginTop: 0
+          marginTop: 0,
         })
       ),
-      transition('open <=> close', [animate('.2s ease-out')])
-    ])
-  ]
+      transition("open <=> close", [animate(".2s ease-out")]),
+    ]),
+  ],
 })
 export class BmDatepickerComponent implements OnInit {
   @Input() label?: string | null = null;
@@ -61,9 +61,9 @@ export class BmDatepickerComponent implements OnInit {
   @Input() weekdays: any = null;
   @Input() months: any = null;
   @Input() formGroupInput?: FormGroup;
-  @Input() formControlNameInput: string = '';
-  @Input() placeholder: string = 'Pick a date';
-  @Input() pattern: string = 'yyyy-mm-dd';
+  @Input() formControlNameInput: string = "";
+  @Input() placeholder: string = "Pick a date";
+  @Input() pattern: string = "yyyy-mm-dd";
   @Output() calendarOutput: EventEmitter<any> = new EventEmitter();
 
   //---------- New in Datepicker ----------
@@ -80,12 +80,13 @@ export class BmDatepickerComponent implements OnInit {
   //---------------------------------------
 
   date = new Date();
-  inputData: InputDataInterface = { year: '', month: '', day: '' };
+  inputData: InputDataInterface = { year: "", month: "", day: "" };
   showDatePicker = false;
   styleElement: any = null;
   patternArray: any = [];
   dividersArray: any = [];
   showError: boolean = false;
+  localSelectedYear: string = "";
 
   isPlain: boolean = false;
 
@@ -116,7 +117,7 @@ export class BmDatepickerComponent implements OnInit {
     this.patternArray = splitPattern(this.pattern);
 
     this.defaultForm = this.formBuilder.group({
-      selectedDate: [this.selectedDate]
+      selectedDate: [this.selectedDate],
     });
 
     const validatePattern = `[0-9]{${this.patternArray[0].length}}${this.dividersArray[0]}[0-9]{${this.patternArray[1].length}}${this.dividersArray[1]}[0-9]{${this.patternArray[2].length}}`;
@@ -132,7 +133,7 @@ export class BmDatepickerComponent implements OnInit {
       const formatedInputDate = parseDateToISO({
         year: splitDateToObj.year,
         month: splitDateToObj.month,
-        day: splitDateToObj.day
+        day: splitDateToObj.day,
       });
       this.selectDay(formatedInputDate);
     } else {
@@ -145,6 +146,8 @@ export class BmDatepickerComponent implements OnInit {
         );
       }
     }
+
+    this.localSelectedYear = this.calendarYearsService.selectedYear;
   }
 
   keyboardInput(event: any) {
@@ -160,17 +163,17 @@ export class BmDatepickerComponent implements OnInit {
         this.showError = true;
       }
       switch (pattern) {
-        case 'dd':
+        case "dd":
           this.inputData.day = inputArray[index];
           break;
-        case 'mm':
+        case "mm":
           this.inputData.month = inputArray[index];
           break;
-        case 'yyyy':
+        case "yyyy":
           this.inputData.year = inputArray[index];
           break;
         default:
-          this.inputData.year = '20' + inputArray[index];
+          this.inputData.year = "20" + inputArray[index];
           break;
       }
     });
@@ -227,7 +230,7 @@ export class BmDatepickerComponent implements OnInit {
     ) {
       this.showError = true;
       this.formGroupInput?.controls[this.formControlNameInput].setErrors({
-        incorrect: true
+        incorrect: true,
       });
     }
     if (!this.showError) {
@@ -248,12 +251,12 @@ export class BmDatepickerComponent implements OnInit {
     if (this.styleElement) {
       this.styleElement.removeChild(this.styleElement.firstChild);
     } else {
-      this.styleElement = document.createElement('style');
+      this.styleElement = document.createElement("style");
     }
     if (this.styleSheet) {
       this.styleSheet = this.styleSheet
-        .replace('};', `} #${this.formControlNameInput} `)
-        .replace(',', `, #${this.formControlNameInput} `);
+        .replace("};", `} #${this.formControlNameInput} `)
+        .replace(",", `, #${this.formControlNameInput} `);
       this.styleSheet = `${stylesDefault} #${this.formControlNameInput}  ${this.styleSheet}`;
     } else {
       this.styleSheet = stylesDefault;
@@ -268,7 +271,7 @@ export class BmDatepickerComponent implements OnInit {
       this.calendarMonthsService.selectedMonth === 0
         ? this.calendarYearsService.selectedYear + 1
         : this.calendarYearsService.selectedYear;
-
+    this.localSelectedYear = this.calendarYearsService.selectedYear;
     this.setFirstAndLastDay();
   };
   selectPrevious = () => {
@@ -277,7 +280,7 @@ export class BmDatepickerComponent implements OnInit {
       this.calendarMonthsService.selectedMonth === 11
         ? this.calendarYearsService.selectedYear - 1
         : this.calendarYearsService.selectedYear;
-
+    this.localSelectedYear = this.calendarYearsService.selectedYear;
     this.setFirstAndLastDay();
   };
 
@@ -286,7 +289,7 @@ export class BmDatepickerComponent implements OnInit {
     this.inputData = {
       year: this.calendarYearsService.selectedYear.toString(),
       month: this.calendarMonthsService.returnMonthDate(dayValue).toString(),
-      day: this.calendarDaysService.returnWeekdayDate(dayValue).toString()
+      day: this.calendarDaysService.returnWeekdayDate(dayValue).toString(),
     };
 
     this.selectedDayDate(dayValue);
@@ -295,7 +298,7 @@ export class BmDatepickerComponent implements OnInit {
       {
         year: this.inputData.year,
         month: formatInputNumber(parseInt(this.inputData.month) + 1),
-        day: formatInputNumber(this.inputData.day)
+        day: formatInputNumber(this.inputData.day),
       },
       this.pattern,
       this.patternArray,
@@ -307,19 +310,19 @@ export class BmDatepickerComponent implements OnInit {
     );
 
     if (this.showDatePicker) {
-      this.defaultForm.controls['selectedDate'].setValue(formatDate);
+      this.defaultForm.controls["selectedDate"].setValue(formatDate);
 
       const formatDateOut: any = formatDateFunction({
         year: this.inputData.year,
         month: parseInt(this.inputData.month) + 1,
-        day: this.inputData.day
+        day: this.inputData.day,
       });
 
       const convertedSelectedDate = formatDateFromObject(
         {
           year: formatDateOut.year,
           month: formatDateOut.month,
-          day: formatDateOut.day
+          day: formatDateOut.day,
         },
         this.pattern,
         this.patternArray,
@@ -327,7 +330,7 @@ export class BmDatepickerComponent implements OnInit {
       );
 
       this.calendarOutput.emit({
-        selectedDate: convertedSelectedDate
+        selectedDate: convertedSelectedDate,
       });
 
       const inputDateToISO = new Date(
@@ -354,7 +357,7 @@ export class BmDatepickerComponent implements OnInit {
       const formatDateOut: any = formatDateFunction({
         year: this.inputData.year,
         month: parseInt(this.inputData.month) + 1,
-        day: this.inputData.day
+        day: this.inputData.day,
       });
       if (
         parsedDate.year === formatDateOut.year &&

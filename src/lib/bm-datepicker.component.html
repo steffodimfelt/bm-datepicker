@@ -2,8 +2,13 @@
   <label for="bm-date-input">{{ label }}</label>
   <div class="bm-date-input-wrapper">
     <div
-      *ngIf="this.formGroupInput === undefined || this.formControlNameInput.length === 0 || this.formControlNameInput === undefined"
-      class="bm-date-input-wrapper">
+      *ngIf="
+        this.formGroupInput === undefined ||
+        this.formControlNameInput.length === 0 ||
+        this.formControlNameInput === undefined
+      "
+      class="bm-date-input-wrapper"
+    >
       <form [formGroup]="defaultForm" class="bm-date-input-wrapper">
         <input
           (keyup)="keyboardInput($event)"
@@ -11,20 +16,27 @@
           [pattern]="pattern"
           formControlName="selectedDate"
           placeholder="{{ placeholder }}"
-          class="bm-date-input" />
+          class="bm-date-input"
+        />
       </form>
     </div>
 
     <div
-      *ngIf="this.formGroupInput && this.formGroupInput.value !== undefined && this.formControlNameInput.length !== 0 "
+      *ngIf="
+        this.formGroupInput &&
+        this.formGroupInput.value !== undefined &&
+        this.formControlNameInput.length !== 0
+      "
       [formGroup]="formGroupInput"
-      class="bm-date-input-wrapper">
+      class="bm-date-input-wrapper"
+    >
       <input
         (keyup)="keyboardInput($event)"
         [readonly]="readonly"
         formControlName="{{ formControlNameInput }}"
         placeholder="{{ placeholder }}"
-        class="bm-date-input bm-date-input-pointer" />
+        class="bm-date-input bm-date-input-pointer"
+      />
     </div>
     <div class="bm-toggle-button" (click)="toggleCalendar()">
       <ng-content></ng-content>
@@ -65,26 +77,31 @@
       </div>
     </div>
     <div
-      *ngFor="let weekRow of calendarMonthsService.selectedMonthDaysArray(isSunday)"
-      class="bm-tr">
+      *ngFor="
+        let weekRow of calendarMonthsService.selectedMonthDaysArray(isSunday)
+      "
+      class="bm-tr"
+    >
       <div
         *ngFor="let dayDate of weekRow; let dayIndex = index"
         [ngClass]="{
           'bm-td': dayDate,
           'bm-td-empty': !dayDate
-        }">
+        }"
+      >
         <div
           (click)="selectDay(dayDate)"
           [ngClass]="{
             'bm-td-inner': dayDate,
             'bm-td-inner-empty': !dayDate,
             'bm-td-lock-day':
-            {
-              dayDate,
-              lockDateBefore,
-              lockDateAfter,
-              patternArray
-            } | checkLockPipe,
+              {
+                dayDate,
+                lockDateBefore,
+                lockDateAfter,
+                patternArray,
+                localSelectedYear
+              } | checkLockPipe,
             'bm-td-current-day':
               calendarYearsService.selectedYear ===
                 calendarYearsService.currentYear &&
@@ -96,10 +113,16 @@
               calendarDaysService.selectedDay !==
                 calendarDaysService.returnWeekdayDate(dayDate),
             'bm-td-selected-day': dayDate && selectedDayDate(dayDate)
-          }">
+          }"
+        >
           <p
             class="bm-date-p"
-            [class.bm-weekend]="dayDate && ((!isSunday && (dayIndex === 5 || dayIndex === 6)) || (isSunday && (dayIndex === 0 || dayIndex === 6)))">
+            [class.bm-weekend]="
+              dayDate &&
+              ((!isSunday && (dayIndex === 5 || dayIndex === 6)) ||
+                (isSunday && (dayIndex === 0 || dayIndex === 6)))
+            "
+          >
             {{ dayDate && calendarDaysService.returnWeekdayDate(dayDate) }}
           </p>
         </div>
@@ -107,6 +130,6 @@
     </div>
   </div>
   <div *ngIf="!!errorMessage && showError" class="bm-error-message">
-    <p>{{errorMessage}}</p>
+    <p>{{ errorMessage }}</p>
   </div>
 </div>

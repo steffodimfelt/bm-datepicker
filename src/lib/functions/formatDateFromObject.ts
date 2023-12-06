@@ -5,16 +5,16 @@ export const formatDateFromObject = (
   dividersArray: any
 ) => {
   let formatedYear = date.year;
-  const getFullYear: any = pattern.match('yyyy');
+  const getFullYear: any = pattern.match("yyyy");
   if (getFullYear === null) {
     formatedYear =
       formatedYear.slice(-1, 1) + formatedYear.slice(2, formatedYear.length);
   }
   let dateArray: any = [];
   patternArray.forEach((format: string) => {
-    if (format === 'dd') {
+    if (format === "dd") {
       dateArray.push(date.day);
-    } else if (format === 'mm') {
+    } else if (format === "mm") {
       dateArray.push(date.month);
     } else {
       dateArray.push(formatedYear);
