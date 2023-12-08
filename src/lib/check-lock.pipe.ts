@@ -2,14 +2,16 @@ import { Pipe, PipeTransform } from "@angular/core";
 import { splitDateToObject } from "./functions/splitDateToObject";
 import { parseDateFromISO } from "./functions/parseDateFromISO";
 import { parseDateToISO } from "./functions/parseDateToISO";
+import { CalendarYearsService } from "./services/calendar-years.service";
 @Pipe({
   name: "checkLockPipe",
 })
 export class CheckLockPipe implements PipeTransform {
+  constructor(private calendarYearsService: CalendarYearsService) {}
   transform(value: any): any {
     if (value.dayDate != undefined) {
       let parseDayDate = parseDateFromISO(value.dayDate);
-      parseDayDate.year = value.localSelectedYear;
+      parseDayDate.year = this.calendarYearsService.selectedYear;
       const parseDayDateToIso = parseDateToISO(parseDayDate);
 
       if (!!value.lockDateBefore && !!value.lockDateAfter) {

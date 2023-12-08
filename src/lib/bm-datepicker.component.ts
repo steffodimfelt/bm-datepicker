@@ -86,7 +86,6 @@ export class BmDatepickerComponent implements OnInit {
   patternArray: any = [];
   dividersArray: any = [];
   showError: boolean = false;
-  localSelectedYear: string = "";
 
   isPlain: boolean = false;
 
@@ -146,8 +145,6 @@ export class BmDatepickerComponent implements OnInit {
         );
       }
     }
-
-    this.localSelectedYear = this.calendarYearsService.selectedYear;
   }
 
   keyboardInput(event: any) {
@@ -271,7 +268,6 @@ export class BmDatepickerComponent implements OnInit {
       this.calendarMonthsService.selectedMonth === 0
         ? this.calendarYearsService.selectedYear + 1
         : this.calendarYearsService.selectedYear;
-    this.localSelectedYear = this.calendarYearsService.selectedYear;
     this.setFirstAndLastDay();
   };
   selectPrevious = () => {
@@ -280,7 +276,6 @@ export class BmDatepickerComponent implements OnInit {
       this.calendarMonthsService.selectedMonth === 11
         ? this.calendarYearsService.selectedYear - 1
         : this.calendarYearsService.selectedYear;
-    this.localSelectedYear = this.calendarYearsService.selectedYear;
     this.setFirstAndLastDay();
   };
 
@@ -360,7 +355,8 @@ export class BmDatepickerComponent implements OnInit {
         day: this.inputData.day,
       });
       if (
-        this.localSelectedYear.toString() === formatDateOut.year &&
+        this.calendarYearsService.selectedYear.toString() ===
+          formatDateOut.year &&
         parsedDate.month === formatDateOut.month &&
         parsedDate.day === formatDateOut.day
       ) {

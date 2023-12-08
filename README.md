@@ -626,6 +626,13 @@ And add it to the `[lockDateBefore]` in "From Date":
   [selectedDate]="selectedFromDateValue"
   (calendarOutput)="lockDateBefore($event)"
 ></bm-datepicker>
+<bm-datepicker
+  label="To Date"
+  pattern="dd-mm-yyyy"
+  [lockDateBefore]="lockDateBeforeValue"
+  [selectedDate]="selectedToDateValue"
+  (calendarOutput)="lockDateAfter($event)"
+></bm-datepicker>
 ```
 
 Done!
