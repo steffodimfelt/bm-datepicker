@@ -1,5 +1,5 @@
 <div id="{{ formControlNameInput }}">
-  <label for="bm-date-input">{{ label }}</label>
+  <label class="bm-label" for="bm-date-input">{{ label }}</label>
   <div class="bm-date-input-wrapper">
     <div
       *ngIf="
@@ -58,10 +58,10 @@
         </div>
       </div>
       <div class="bm-year-month-title">
-        <p class="bm-date-p bm-month-title">
+        <p class="bm-paragraph bm-date-p bm-month-title">
           {{ calendarMonthsService.selectedMonthName }}
         </p>
-        <p class="bm-date-p bm-year-title">
+        <p class="bm-paragraph bm-date-p bm-year-title">
           {{ calendarYearsService.selectedYear }}
         </p>
       </div>
@@ -73,7 +73,7 @@
     </div>
     <div class="bm-tr bm-daylabels-wrapper">
       <div *ngFor="let weekdayLabel of weekdayLabels" class="bm-th">
-        <p class="bm-date-p">{{ weekdayLabel }}</p>
+        <p class="bm-paragraph bm-date-p">{{ weekdayLabel }}</p>
       </div>
     </div>
     <div
@@ -115,7 +115,7 @@
           }"
         >
           <p
-            class="bm-date-p"
+            class="bm-paragraph bm-date-p"
             [class.bm-weekend]="
               dayDate &&
               ((!isSunday && (dayIndex === 5 || dayIndex === 6)) ||

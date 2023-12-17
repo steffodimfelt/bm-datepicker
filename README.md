@@ -264,19 +264,24 @@ In the component:
 
 ```javascript
 styles = `
-p{
+p.bm-paragraph{
     font-family:"Poppins", Verdana, sans-serif;
     color: #000;
     margin:0;
     padding:0;
 } 
-input{
+input.bm-date-input{
     font-family:"Poppins", Verdana, sans-serif;
     color: #000;
     margin:0;
-    padding:0;
+    display:flex;
+    flex:1;
+    height:40px;
+    border-radius: 9999px;
+    padding: 3px 0 3px 20px; 
+    border: 1px solid rgb(195, 195, 195)
 } 
-label{
+label.bm-label{
     font-family:"Poppins", Verdana, sans-serif;
     color: #000;
     margin:0;
@@ -284,13 +289,6 @@ label{
     font-size: .9rem;
     font-weight: 500;
     margin-left:15px;
-}
-.bm-date-input{
-    display:flex;
-    flex:1;height:40px;
-    border-radius: 9999px;
-    padding: 3px 0 3px 20px; 
-    border: 1px solid rgb(195, 195, 195)
 }
 .bm-date-input-wrapper{
     position:relative; 
@@ -410,13 +408,11 @@ label{
     margin-top: -8px
 }
 .bm-td-current-day{border: 1px solid rgb(0, 202, 101)}
-
 .bm-td-lock-day{ 
     pointer-events:none;
-    background: repeating-linear-gradient(-55deg,rgb(222, 222, 222), rgb(222, 222, 222) 2px,rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px);
-    border: 1px solid rgb(222, 222, 222)
+    background: repeating-linear-gradient(-55deg,rgb(200, 200, 200), rgb(200, 200, 200) 2px,rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px);
+    border: 1px solid rgb(200, 200, 200)
 }
-
 .bm-arrow {
     border: solid #000;
     border-width: 0 3px 3px 0;
@@ -648,4 +644,5 @@ Steffo Dimfelt
 
 # Version list
 
+- 1.0.9: Adjust stylesheet
 - 1.0.8: Adjust locked days and selected date

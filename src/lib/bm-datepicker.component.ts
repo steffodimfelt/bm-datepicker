@@ -57,11 +57,11 @@ import { matchPattern } from "./functions/matchPattern";
 })
 export class BmDatepickerComponent implements OnInit {
   @Input() label?: string | null = null;
-  @Input() styleSheet: any = null;
+  @Input() styleSheet?: string | null = null;
   @Input() weekdays: any = null;
   @Input() months: any = null;
   @Input() formGroupInput?: FormGroup;
-  @Input() formControlNameInput: string = "";
+  @Input() formControlNameInput: string = "bm-datepicker";
   @Input() placeholder: string = "Pick a date";
   @Input() pattern: string = "yyyy-mm-dd";
   @Output() calendarOutput: EventEmitter<any> = new EventEmitter();
@@ -82,7 +82,6 @@ export class BmDatepickerComponent implements OnInit {
   date = new Date();
   inputData: InputDataInterface = { year: "", month: "", day: "" };
   showDatePicker = false;
-  styleElement: any = null;
   patternArray: any = [];
   dividersArray: any = [];
   showError: boolean = false;
@@ -245,21 +244,10 @@ export class BmDatepickerComponent implements OnInit {
   }
 
   createStyle(): void {
-    if (this.styleElement) {
-      this.styleElement.removeChild(this.styleElement.firstChild);
-    } else {
-      this.styleElement = document.createElement("style");
-    }
-    if (this.styleSheet) {
-      this.styleSheet = this.styleSheet
-        .replace("};", `} #${this.formControlNameInput} `)
-        .replace(",", `, #${this.formControlNameInput} `);
-      this.styleSheet = `${stylesDefault} #${this.formControlNameInput}  ${this.styleSheet}`;
-    } else {
-      this.styleSheet = stylesDefault;
-    }
-    this.styleElement.appendChild(document.createTextNode(this.styleSheet));
-    this.elementRef.nativeElement.appendChild(this.styleElement);
+    let styleElement = document.createElement("style");
+    const stylesheetFormated = `${stylesDefault} ${this.styleSheet}`;
+    styleElement.appendChild(document.createTextNode(stylesheetFormated));
+    this.elementRef.nativeElement.appendChild(styleElement);
   }
 
   selectNext = () => {
